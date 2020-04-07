@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = 'https://baicu.com?abc=123&zf=666&px=888&_=t';
+        function queryParams(str) {
+            str = str.split('?')[1];
+            let arr = str.split(/(?:&|=)/g);
+            let obj = {};
+            for (let i = 0; i < arr.length; i += 2) {
+					obj[arr[i]] = arr[i + 1];
+				}
+            return obj;
+        };
+     let result =queryParams(str);
+     console.log(result);
+
+     
+    
+    </script>
+</body>
+
+</html>
