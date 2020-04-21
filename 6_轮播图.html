@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./less/6.css">
+</head>
+
+<body>
+  <div id="box">
+    <!-- box 是可视窗口 -->
+    <ul class='list'>
+      <!-- ul 是一个长条 -->
+      <li>
+        <img src="http://img2.imgtn.bdimg.com/it/u=4015931299,2257974035&fm=26&gp=0.jpg" alt="">
+      </li>
+      <li>
+        <img src="http://img2.imgtn.bdimg.com/it/u=2777177050,1757340482&fm=26&gp=0.jpg" alt="">
+      </li>
+      <li>
+        <img src="http://img2.imgtn.bdimg.com/it/u=2949865499,989176713&fm=26&gp=0.jpg" alt="">
+      </li>
+      <li>
+        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2877322133,3002445824&fm=11&gp=0.jpg"
+          alt="">
+      </li>
+      <li>
+        <img src="http://img1.imgtn.bdimg.com/it/u=2105650005,242495932&fm=11&gp=0.jpg" alt="">
+      </li>
+      <li>
+        <img src="http://img2.imgtn.bdimg.com/it/u=4015931299,2257974035&fm=26&gp=0.jpg" alt="">
+      </li>
+    </ul>
+    <div class="btn_box">
+      <div class="left_btn"> &lt; </div>
+      <div class="right_btn"> > </div>
+    </div>
+    <div class="choose">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+
+</html>
+<script>
+  let box = document.querySelector('#box');
+  let ul = document.querySelector('ul');
+  let leftBtn = document.querySelector('.left_btn'),
+    rightBtn = document.querySelector('.right_btn');
+  let start = 0;
+  let timer = null;
+  let chooseBox = Array.from(document.querySelectorAll('.choose li'));
+
+  function base() {
+    start -= 600;
+    if (start < -3000) {
+      start = 0;
+      ul.style.transition = 'none';
+      ul.style.transform = `translateX(${start}px)`;
+      let l = ul.offsetHeight;
+      start = -600;
+      ul.style.transition = 'all 0.3s';
+    } else {
+      ul.style.transition = 'all 0.3s';
+    }
+    ul.style.transform = `translateX(${start}px)`;
+  }
+
+  function move() {
+    timer = setInterval(() => {
+      base();
+    }, 1500);
+  }
+  // 滑过盒子 清除定时器
+  box.onmouseenter = function () {
+    clearInterval(timer);
+  }
+  // 离开盒子 重启定时器
+  box.onmouseleave = function () {
+    move();
+  }
+
+  function btn() {
+    leftBtn.onclick = function () {
+      start += 600;
+      if (start > 0) {
+        start = -3000;
+        ul.style.transition = 'none';
+        ul.style.transform = `translateX(${start}px)`;
+        let l = ul.offsetHeight;
+        start += 600;
+        ul.style.transition = 'all 0.3s'
+      } else {
+        ul.style.transition = 'all 0.3s';
+      }
+      ul.style.transform = `translateX(${start}px)`;
+    }
+    rightBtn.onclick = function () {
+      base();
+    };
+  }
+  btn();
+  chooseBox.forEach((item, index) => {
+    item.onclick = function () {
+     start = -600 *index;
+     ul.style.transition = 'all 0.3s';
+     ul.style.transform = `translateX(${start}px)`;
+    }
+  });
+</script>
